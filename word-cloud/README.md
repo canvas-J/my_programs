@@ -5,12 +5,12 @@ It has friendly interface and chooseable attributions.
 
 Output formats supported:
 
-python2.7
-scipy
-matplotlib
-python-tk
-wordcloud
-jieba
+python2.7;
+scipy;
+matplotlib;
+python-tk;
+wordcloud;
+jieba;
 
 
 
