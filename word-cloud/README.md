@@ -4,7 +4,7 @@
 
 ### It has friendly interface and chooseable attributions.
 
--Output formats supported:
+- Output formats supported:
 
 * python2.7;<br>
 * scipy;<br>
@@ -13,7 +13,7 @@
 * wordcloud;<br>
 * jieba;<br>
 
-####To start,<br>
+#### To start,<br>
     1 put the file and the picture (which has unique strange) into the folder :"file".<br>
     2 remember the name of them.<br>
     3 run ".py".
