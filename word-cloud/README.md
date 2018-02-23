@@ -1,20 +1,19 @@
-This is a program which can make words to wordcloud.
+# WordCloud
 
-It has friendly interface and chooseable attributions.
+=This is a program which can make words to wordcloud.
 
+=It has friendly interface and chooseable attributions.
 
-Output formats supported:
+-Output formats supported:
 
-python2.7;
-scipy;
-matplotlib;
-python-tk;
-wordcloud;
-jieba;
+* python2.7;<br>
+* scipy;<br>
+* matplotlib;<br>
+* python-tk;<br>
+* wordcloud;<br>
+* jieba;<br>
 
-
-
-To start, 
-    1 put the file and the picture (which has unique strange) into the folder :"file".
-    2 remember the name of them.
+To start,<br>
+    1 put the file and the picture (which has unique strange) into the folder :"file".<br>
+    2 remember the name of them.<br>
     3 run ".py".
