@@ -4,7 +4,8 @@
 
 ### It has friendly interface and chooseable attributions.
 
-- Output formats supported:
+Output formats supported:
+------
 
 * python2.7;<br>
 * scipy;<br>
