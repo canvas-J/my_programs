@@ -3,15 +3,10 @@ import os
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
-from Tkinter import *
+from tkinter import *
 
-#声名一个tk（你可以把tk理解为一个窗口）
-root = Tk()
-#这里填写什么，生成窗口的名字就是什么
-root.title("ftpserver")
-
-# use----ftp://localhost:2121
-
+# 需要安装pyftpdlib
+# python3 -m pip install pyftpdlib 
 
 #下面为ftpserver主函数
 def ftpserver():
@@ -55,7 +50,9 @@ def ftpserver():
     # start ftp server
     server.serve_forever()
 
-
+root = Tk()
+root.title("ftpserver")
+# use----ftp://localhost:2121
 #下面这些是对最开始的时候创建的tk进行行列式填充 label为文本 entry为输入框 
 L1 = Label(root,text = 'UserName:').grid(column = 0,row = 0)
 var1 = StringVar()
