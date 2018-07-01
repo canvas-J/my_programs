@@ -7,10 +7,10 @@
 Output formats supported:
 ------
 
-* python2.7;<br>
+* python3.x;<br>
 * scipy;<br>
 * matplotlib;<br>
-* python-tk;<br>
+* python3-tk;<br>
 * wordcloud;<br>
 * jieba;<br>
 

@@ -2,7 +2,7 @@
 from os import path
 from scipy.misc import imread
 import matplotlib.pyplot as plt
-from Tkinter import *
+from tkinter import *
 import jieba
 import random
 # jieba.load_userdict("txt\userdict.txt")
@@ -24,13 +24,12 @@ def jiebaclearText(text):
     mywordlist = []
     seg_list = jieba.cut(text, cut_all=False)
     liststr="/ ".join(seg_list)
-    f_stop = open(stopwords_path)
+    f_stop = open(stopwords_path, 'r', encoding='utf-8')
     try:
         f_stop_text = f_stop.read( )
-        f_stop_text=unicode(f_stop_text,'utf-8')
     finally:
         f_stop.close( )
-    f_stop_seg_list=f_stop_text.split('\n')
+    f_stop_seg_list = f_stop_text.split('\n')
     for myword in liststr.split('/'):
         if not(myword.strip() in f_stop_seg_list) and len(myword.strip())>1:
             mywordlist.append(myword)
@@ -71,7 +70,7 @@ def TXT2WC():
                    width=1366, height=768, margin=2,# 设置图片默认的大小,但是如果使用背景图片的话,那么保存的图片大小将会按照其大小保存,margin为词语边缘距离
                    )
     add_word(my_words_list)
-    text = open(path.join(d, text_path)).read()
+    text = open(path.join(d, text_path), 'r', encoding='utf-8').read()
 
     if isCN:
         text = jiebaclearText(text)
