@@ -63,9 +63,9 @@ def TXT2WC():
     # 设置词云属性
     wc = WordCloud(font_path=font_path,  # 设置字体
                    background_color="white",  # 背景颜色
-                   max_words=2000,  # 词云显示的最大词数
+                   max_words=200,  # 词云显示的最大词数
                    mask=back_coloring,  # 设置背景图片
-                   max_font_size=100,  # 字体最大值
+                   max_font_size=500,  # 字体最大值
                    random_state=42,
                    width=1366, height=768, margin=2,# 设置图片默认的大小,但是如果使用背景图片的话,那么保存的图片大小将会按照其大小保存,margin为词语边缘距离
                    )
