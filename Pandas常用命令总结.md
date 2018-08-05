@@ -45,7 +45,7 @@ self.df['name'].str.replace('当前时间', '')
 # 多列赋值
 def myFun(x):
     return x+10, x*10
-df['add_10'], df['mul_10'] = zip(*df['val'].apply(myFun))
+df['add_10'], df['mul_10'] = zip(*df['val'].apply(myFun)) # 解压输出两个列表
 # 连接字符
 concat
 append
