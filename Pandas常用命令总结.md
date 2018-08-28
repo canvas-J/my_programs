@@ -1,5 +1,6 @@
 # 读取文件
 self.df = pd.DataFrame(pd.read_excel(self.file_name))
+self.df = pd.DataFrame(pd.read_csv(self.file_name))
 # 去除空格
 self.df['最低温'] = self.df['最低温'].apply(lambda x: str(x).strip())
 self.df['最低温'] = self.df['最低温'].map(str.strip)
@@ -21,6 +22,7 @@ self.df.rename(columns={'温度':'最高温'}, inplace = True)
 self.df['真正发布日期'] = np.array(list(map(lambda x,y,z:self.do_merchant(x,y,z),self.df['更新时间'],self.df['小时'],self.df['发布日期'])))
 # 输出为文件
 self.df.to_excel(self.file_name, index = False)
+self.df.to_csv(self.file_name, index = False)
 # 重设索引
 self.df.reset_index()
 # loc函数按标签值进行提取，iloc按位置进行提取，ix可以同时按标签和位置进行提取
@@ -47,12 +49,23 @@ def myFun(x):
     return x+10, x*10
 df['add_10'], df['mul_10'] = zip(*df['val'].apply(myFun)) # 解压输出两个列表
 # 连接字符
-concat
+pd.concat(objs,axis=0,join='outer',join_axes=None,ignore_index-False,keys=None,levels=None,verify_integrity=False,copy=True)
+一般使用后要跟上(否则序号会有错误)：result = result.reset_index(drop=True)
+* objs:用来保存需要用来进行连接的Series/DataFrame，可以是列表或者dict类型 
+* axis表示希望进行连接的轴向，默认我0，也就是纵向拼接 
+* join有多个选择，inner,outer,这里默认值是outer,下面会根据实例来比较下 
+* join_axes默认为空，可以设置值指定为其他轴上使用的索引 
+* ignore_index，连接后原来两个DF的index值会被保存，如果该索引没有实际的意义可以设置为True来进行重分配index号
 append
 df_inner = pd.merge(df,df1,how='inner')  # 匹配合并，交集
 df_left = pd.merge(df,df1,how='left')    # 左连接
 df_right = pd.merge(df,df1,how='right')  # 右连接
 df_outer = pd.merge(df,df1,how='outer')  # 并集
+# 去除重复
+datalist = result.drop_duplicates(subset=['bu_links', 'c_address', 'c_name', 'c_product', 'co_links'], keep='first', inplace=False)
+* subset : column label or sequence of labels, optional 用来指定特定的列，默认所有列
+* keep : {‘first’, ‘last’, False}, default ‘first’ 删除重复项并保留第一次出现的项
+* inplace : boolean, default False 是直接在原来数据上修改还是保留一个副本
 # 某列格式
 self.df['B'].dtype
 # 使用均值填充列
