@@ -3,21 +3,19 @@ import os
 import pandas as pd
 import glob
 
-def hebing():
-    csv_list = glob.glob('file/*.csv')
-    print(u'共发现{}个CSV文件'.format(len(csv_list)))
-    print(u'正在处理............')
-    for i in csv_list:
-        fr = open(i,'r').read()
-        with open('result.csv','a') as f:
-            f.write(fr)
-    print(u'合并完毕！')
-
-def quchong(file):
-    df = pd.read_csv(file, header=0)
-    datalist = df.drop_duplicates()
-    datalist.to_csv(file)
+class MerageTool:
+    def merage_all():
+        csv_list = glob.glob('file/*.csv')
+        print(u'共发现{}个CSV文件'.format(len(csv_list)))
+        print(u'正在处理............')
+        frames = []
+        for c_name in csv_list:
+            frames.append(pd.read_csv(c_name, encoding="gb18030", low_memory=False))
+        result = pd.concat(frames)
+        print(u'>>>>>>合并完毕！<<<<<<')
+        datalist = result.drop_duplicates(subset=['bu_links', 'c_address', 'c_name', 'c_product', 'co_links'], keep='first', inplace=False)
+        datalist.to_csv("result.csv", encoding="gb18030")
+        print(u'>>>>>>去重完毕！<<<<<<')
 
 if __name__ == '__main__':
-    hebing()
-    quchong("result.csv")
+    MerageTool.merage_all()
