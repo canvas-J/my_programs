@@ -12,6 +12,7 @@ class MerageTool:
         for c_name in csv_list:
             frames.append(pd.read_csv(c_name, encoding="gb18030", low_memory=False))
         result = pd.concat(frames)
+        result = result.reset_index(drop=True)
         print(u'>>>>>>合并完毕！<<<<<<')
         datalist = result.drop_duplicates(subset=['bu_links', 'c_address', 'c_name', 'c_product', 'co_links'], keep='first', inplace=False)
         datalist.to_csv("result.csv", encoding="gb18030")
