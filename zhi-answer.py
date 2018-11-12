@@ -37,15 +37,17 @@ for answer in question.answers:
     #         ])
     gender_dict = {'0': '女', '1': '男', '-1': '不详'}
     loc = ''
-    for location in answer.author.locations:
-        loc += location.name
+    if answer.author.locations:
+        for location in answer.author.locations:
+            loc += location.name
     company = ''
     job = ''
-    for employment in answer.author.employments:
-        if 'company' in employment:
-            company += employment.company.name
-        if 'job' in employment:
-            job += employment.job.name
+    if answer.author.employments:
+        for employment in answer.author.employments:
+            if 'company' in employment:
+                company += employment.company.name
+            if 'job' in employment:
+                job += employment.job.name
     item_data += [re.compile(r'<.*?>', re.S).sub('', answer.content), answer.author.name, gender_dict[answer.author.gender],
             loc, answer.author.business.name, company, job, datetime.datetime.fromtimestamp(answer.created_time),
             datetime.datetime.fromtimestamp(answer.updated_time), answer.voteup_count, answer.comment_count, answer.thanks_count

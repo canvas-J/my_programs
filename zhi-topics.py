@@ -37,15 +37,17 @@ for question in topic.unanswered_questions:
     for answer in question.answers:
         gender_dict = {'0': '女', '1': '男', '-1': '不详'}
         loc = ''
-        for location in answer.author.locations:
-            loc += location.name
+        if answer.author.locations:
+            for location in answer.author.locations:
+                loc += location.name
         company = ''
         job = ''
-        for employment in answer.author.employments:
-            if 'company' in employment:
-                company += employment.company.name
-            if 'job' in employment:
-                job += employment.job.name
+        if answer.author.employments:
+            for employment in answer.author.employments:
+                if 'company' in employment:
+                    company += employment.company.name
+                if 'job' in employment:
+                    job += employment.job.name
         time.sleep(random.uniform(0.1, 0.3))
         item_data = [datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')]
         item_data += [re.compile(r'<.*?>', re.S).sub('', answer.content), question.title, answer.author.name,  gender_dict[str(answer.author.gender)],
