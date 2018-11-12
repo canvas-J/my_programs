@@ -1,5 +1,5 @@
 # -*- coding=utf-8 -*-
-import os, datetime, re, time, random
+import os, datetime, re, time, random, logging, traceback
 from openpyxl import Workbook
 from zhihu_oauth import ZhihuClient
 from zhihu_oauth.exception import NeedCaptchaException
@@ -20,6 +20,12 @@ else:
         client.login('email_or_phone', 'password', captcha)
     client.save_token(TOKEN_FILE)
 
+#日志设置
+logging.basicConfig(level=logging.ERROR,  
+                format='%(asctime)s %(levelname)s %(message)s',  
+                datefmt='%Y-%m-%d %H:%M:%S',
+                filename='zhi.log',
+                filemode='w')
 
 wb = Workbook()
 sheet = wb.active
@@ -30,12 +36,16 @@ for j,title in enumerate(item_name):
 
 topic = client.topic(int(topic_id))
 print(topic.name)
-# num = 0
+num = 0
 for question in topic.unanswered_questions:
     print(question.title)
-    # num += 1
+    num += 1
     for answer in question.answers:
         gender_dict = {'0': '女', '1': '男', '-1': '不详'}
+        if answer.author.gender != None:
+            gender = gender_dict[str(answer.author.gender)]
+        else:
+            gender = '不详'
         loc = ''
         if answer.author.locations:
             for location in answer.author.locations:
@@ -48,15 +58,22 @@ for question in topic.unanswered_questions:
                     company += employment.company.name
                 if 'job' in employment:
                     job += employment.job.name
-        time.sleep(random.uniform(0.1, 0.3))
+        if answer.author.business:
+            business = answer.author.business.name
+        else:
+            business = ''
+        # time.sleep(random.uniform(0.1, 0.3))
         item_data = [datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')]
-        item_data += [re.compile(r'<.*?>', re.S).sub('', answer.content), question.title, answer.author.name,  gender_dict[str(answer.author.gender)],
-                loc, answer.author.business.name, company, job, datetime.datetime.fromtimestamp(answer.created_time),
-                datetime.datetime.fromtimestamp(answer.updated_time), answer.voteup_count, answer.comment_count, answer.thanks_count
-                ]
+        try:
+            item_data += [re.compile(r'<.*?>', re.S).sub('', answer.content), question.title, answer.author.name, gender, loc, business,
+                    company, job, datetime.datetime.fromtimestamp(answer.created_time),
+                    datetime.datetime.fromtimestamp(answer.updated_time), answer.voteup_count, answer.comment_count, answer.thanks_count
+                    ]
+        except:
+            logging.error(question.title+'******'+answer.author.name+'\n'+'-'*60+'\n'+traceback.format_exc()+'-'*60+'\n')
         # print(answer.author.name, answer.voteup_count)
-        sheet.append(item_data)
-        # answer.save(question.title)
-    # if num > 6:
-    #     break
-wb.save('知乎回答-{}.xlsx'.format('男士护肤'))
+        finally:
+            sheet.append(item_data)
+            # answer.save(question.title)
+    if num % 10 == 0:
+        wb.save('知乎回答-{}.xlsx'.format('男士护肤'))
