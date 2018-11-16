@@ -52,7 +52,7 @@ num = 0
 for question in topic.unanswered_questions:
     if question.title not in queue:
         print(question.title)
-        queue.add(question.title)
+        queue.add(hash(question.title))
         for answer in question.answers:
             num += 1
             try:
@@ -84,8 +84,8 @@ for question in topic.unanswered_questions:
                         ]
             except:
                 wb.save('知乎-{}.xlsx'.format(file_name))
-                queue.pop(question.title)
-                pickle.dump(queue, open("queue.pkl","wb"))
+                queue.remove(hash(question.title))
+                pickle.dump(queue, open("queue.pkl", "wb"))
                 logging.error(question.title+'******'+answer.author.name+'\n'+'-'*60+'\n'+traceback.format_exc()+'-'*60+'\n')
             finally:
                 sheet.append(item_data)
