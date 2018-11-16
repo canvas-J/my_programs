@@ -10,8 +10,6 @@ topic_id = input('请输入话题id号，获取所有答案：')
 file_name = input('请输入保存文件名，不带后缀：')
 TOKEN_FILE = 'token.pkl'
 client = ZhihuClient()
-topic = client.topic(int(topic_id))
-print(topic.name)
 
 if os.path.isfile(TOKEN_FILE):
     client.load_token(TOKEN_FILE)
@@ -24,6 +22,9 @@ else:
         captcha = input('please input captcha:')
         client.login('email_or_phone', 'password', captcha)
     client.save_token(TOKEN_FILE)
+
+topic = client.topic(int(topic_id))
+print(topic.name)
 
 #日志设置
 logging.basicConfig(level=logging.ERROR,  
