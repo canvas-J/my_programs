@@ -1,5 +1,5 @@
 # -*- coding=utf-8 -*-
-import os, datetime, re, time, random, logging, traceback, pickle
+import os, datetime, re, time, random, logging, traceback, pickle, hashlib
 from openpyxl import Workbook
 from openpyxl import load_workbook
 from zhihu_oauth import ZhihuClient
@@ -52,7 +52,8 @@ num = 0
 for question in topic.unanswered_questions:
     if question.title not in queue:
         print(question.title)
-        queue.add(hash(question.title))
+        hash_info = hashlib.md5(question.title.encode("utf-8")).hexdigest()
+        queue.add(hash_info)
         for answer in question.answers:
             num += 1
             try:
@@ -84,7 +85,7 @@ for question in topic.unanswered_questions:
                         ]
             except:
                 wb.save('知乎-{}.xlsx'.format(file_name))
-                queue.remove(hash(question.title))
+                queue.remove(hash_info)
                 pickle.dump(queue, open("queue.pkl", "wb"))
                 logging.error(question.title+'******'+answer.author.name+'\n'+'-'*60+'\n'+traceback.format_exc()+'-'*60+'\n')
             finally:
