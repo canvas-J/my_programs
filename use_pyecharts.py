@@ -463,6 +463,15 @@ if __name__ == '__main__':
     creat_Timeline()
     page.render('Page.html')
 '''
+numpy 数据类型--add 数据直接支持 numpy.array 对象
+zip 函数--两个长度相等的列表
+Base.cast 函数--数据格式化处理函数,同zip
+borax.fetch 模块--选取多个属性
+fetch(iterable, key, *keys, default=EMPTY, defaults=None, getter=None)
+对于复杂的关系图，可以使用 networkx 库构建节点和连线，并传递给 add 函数
+'''
+
+'''
 　  Bar（柱状图/条形图） 
 　　Bar3D（3D 柱状图） 
 　　Boxplot（箱形图） 
