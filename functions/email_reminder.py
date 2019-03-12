@@ -18,7 +18,7 @@ def send_email(link, item_name):
     msg["To"] = _to
 
     try:
-        s = smtplib.SMTP_SSL("smtp.china-norm.com", 465)
+        s = smtplib.SMTP_SSL("hwsmtp.qiye.163.com", 994)
         s.login(_user, _pwd)
         s.sendmail(_user, _to, msg.as_string())
         s.quit()
