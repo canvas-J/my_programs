@@ -66,7 +66,7 @@ def TXT2WC():
                    max_words=400,  # 词云显示的最大词数
                    mask=back_coloring,  # 设置背景图片
                    max_font_size=350,  # 字体最大值
-                   random_state=42,
+                   random_state=42, scale=10,
                    width=1366, height=768, margin=2,# 设置图片默认的大小,但是如果使用背景图片的话,那么保存的图片大小将会按照其大小保存,margin为词语边缘距离
                    )
     add_word(my_words_list)
